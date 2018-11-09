@@ -2,9 +2,16 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import django
+
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.views import LoginView as login, LogoutView as logout
+
+if django.VERSION < (2, 1):  # pragma: no cover
+    from django.contrib.auth.views import login, logout
+else:
+    from django.contrib.auth.views import LoginView as login, LogoutView as logout
+
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.urls import reverse
